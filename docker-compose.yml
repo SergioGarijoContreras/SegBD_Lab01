@@ -1,24 +1,23 @@
-version: "3.8"
 services:
   mongo:
     image: mongo:7
-    # ports: ["27017:27017"] Eliminar exposición mongo
+    # ports: ["27017:27017"]   # Eliminar exposición de Mongo
     environment:
-    # Cambio de credenciales por defecto para autenticación
-    MONGO_INITDB_ROOT_USERNAME: sergio.garijo
-    MONGO_INITDB_ROOT_PASSWORD: UNIR1234
-    MONGO_INITDB_DATABASE: tienda
-    MONGO_APP_USERNAME: sergio.tienda
-    MONGO_APP_PASSWORD: UNIR.tienda1234
+      # Cambio de credenciales por defecto + auth
+      MONGO_INITDB_ROOT_USERNAME: sergio.garijo
+      MONGO_INITDB_ROOT_PASSWORD: UNIR1234
+      MONGO_INITDB_DATABASE: tienda
+      MONGO_APP_USERNAME: sergio.tienda
+      MONGO_APP_PASSWORD: UNIR.tienda1234
     volumes:
       - ./init_mongo.js:/docker-entrypoint-initdb.d/init_mongo.js:ro
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.10
-    # ports: ["9200:9200"] Eliminar exposición de Elastic 
+    # ports: ["9200:9200"]   # Eliminar exposición de Elastic
     environment:
       discovery.type: single-node
-      xpack.security.enabled: "true" #Habilitar securización vía autenticación a Elastic
+      xpack.security.enabled: "true"   # Auth en Elastic
       ELASTIC_PASSWORD: "elastic.UNIR"
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
 
@@ -27,9 +26,12 @@ services:
     ports: ["8000:8000"]
     depends_on: [mongo, elasticsearch]
     environment:
-      # Se da la contraseña a la API
-      ELASTIC_HOST: elasticsearch
-      ELASTIC_PASSWORD: "elastic.UNIR"
+      # Mongo
       MONGO_HOST: mongo
       MONGO_DATABASE: tienda
+      MONGO_APP_USERNAME: sergio.tienda
+      MONGO_APP_PASSWORD: UNIR.tienda1234
+      # Elasticsearch
       ELASTIC_HOST: elasticsearch
+      ELASTIC_USER: elastic
+      ELASTIC_PASSWORD: "elastic.UNIR"
