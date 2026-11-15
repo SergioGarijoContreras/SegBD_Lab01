@@ -9,7 +9,7 @@ Laboratorio reproducible en Docker Compose para reproducir ataques controlados y
 ## Branch explicadas
 
 - `hardened` (**default branch**): versión bastionada, aplicando contramedidas solicitadas.
-- `insecddure-baseline`: estado vulnerable de la configuración (Mongo sin auth, ES abierto, NoSQLi en `/login_mongo`).
+- `baseline-insecure`: estado vulnerable de la configuración (Mongo sin auth, ES abierto, NoSQLi en `/login_mongo`).
 
 ## Software utilizado
 
