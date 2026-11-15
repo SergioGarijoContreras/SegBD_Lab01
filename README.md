@@ -1,6 +1,32 @@
-# SegBD_Lab01 — Baseline inseguro
-Estado vulnerable del laboratorio.
-Mongo sin `--auth`, ES sin seguridad y puertos 27017/9200/8000 expuestos; app FastAPI sin validación.
-Arranque: `docker compose up -d --build` y smoke test: `/pedidos`, `/login_mongo`, `/articulos`.
-Ataques: NoSQLi `{"password":{"$ne":"x"}}`, `curl localhost:9200/_cat/indices?v`, `_search?q=*` y `DELETE /articulos`.
-Resultado: todos funcionan (200) → sin auth, sin TLS, sin logs de seguridad.
+# SegBD_Lab01 — Seguridad en NoSQL (MongoDB y Elasticsearch) con FastAPI
+
+**Autor:** Sergio Garijo.
+**Asignatura:** Seguridad en Bases de Datos, Blockchain y Big Data
+Laboratorio reproducible en Docker Compose para reproducir ataques controlados y aplicar contramedidas de defensa con tal de evitar estos mismos ataques.
+
+---
+
+## Branch explicadas
+
+- `hardened` (**default branch**): versión bastionada, aplicando contramedidas solicitadas.
+- `insecddure-baseline`: estado vulnerable de la configuración (Mongo sin auth, ES abierto, NoSQLi en `/login_mongo`).
+
+## Software utilizado
+
+Se ha realizado esta actividad en un sistema Arch Linux, enteramente mediante comandos CLI.
+
+Los comandos y herramientas usadas han sido:
+- `Docker compose`
+- `Docker`
+- `Python 3.11`
+- `curl`
+- `git`
+- `nmap`
+
+## Setup
+
+```bash
+git checkout hardened
+docker compose down
+docker compose up -d --build
+docker compose ps
