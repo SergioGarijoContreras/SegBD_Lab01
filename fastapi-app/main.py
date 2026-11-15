@@ -17,7 +17,6 @@ mongo = MongoClient(
 )
 db = mongo[os.getenv("MONGO_DATABASE", "tienda")]
 
-# Validación mediante string para evitar el uso de $
 class Login(BaseModel):
     username: str
     password: str
@@ -27,6 +26,7 @@ class Pedido(BaseModel):
     cantidad: int
 
 @app.post("/login_mongo")
+#Se define corrutina asíncrona para validación de peticiones de tipo Login
 async def login(login_data: Login):
     # $eq explícito obligatoriedad de que deba usarse valor igual al consultado en login
     user = db.usuarios.find_one({
