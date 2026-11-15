@@ -1,8 +1,8 @@
 # SegBD_Lab01 — Seguridad en NoSQL (MongoDB y Elasticsearch) con FastAPI
 
-**Autor:** Sergio Garijo Contreras \
+**Autor:** Sergio Garijo Contreras
 
-**Asignatura:** Seguridad en Bases de Datos, Blockchain y Big Data \
+**Asignatura:** Seguridad en Bases de Datos, Blockchain y Big Data
 
 Laboratorio reproducible en Docker Compose para reproducir ataques controlados y aplicar contramedidas de defensa con tal de evitar estos mismos ataques. 
 
